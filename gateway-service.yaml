@@ -32,7 +32,7 @@ spring:
              filters:
                - StripPrefix=1
            - id: servicio-autenticacion
-             uri: lb://servicio-autenticacion
+             uri: https://localhost:8081/
              predicates:
                - Path=/servicio-autenticacion/**
              filters:
