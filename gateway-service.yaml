@@ -7,42 +7,37 @@ spring:
   
   cloud:
     gateway:
-      # Configuración SSL (para aceptar certs auto-firmados)
+      # Configuración SSL para permitir certificados autofirmados
       httpclient:
         ssl:
           use-insecure-trust-manager: true
-      
-      # Rutas
-      routes:
-        - id: servicio-autenticacion
-          uri: https://localhost:8081
-          predicates:
-            - Path=/servicio-autenticacion/**
-          filters:
-            - StripPrefix=1
-        
-        - id: customer-service
-          uri: lb://customer-service
-          predicates:
-            - Path=/customer-service/**
-          filters:
-            - StripPrefix=1
-        
-        - id: invoice-service
-          uri: lb://invoice-service
-          predicates:
-            - Path=/invoice-service/**
-          filters:
-            - StripPrefix=1
-        
-        - id: product-service
-          uri: lb://product-service
-          predicates:
-            - Path=/product-service/**
-          filters:
-            - StripPrefix=1
 
-# Eureka
+      routes:
+           - id: customer-service
+             uri: lb://customer-service
+             predicates:
+               - Path=/customer-service/**
+             filters:
+               - StripPrefix=1
+           - id: invoice-service
+             uri: lb://invoice-service
+             predicates:
+               - Path=/invoice-service/**
+             filters:
+               - StripPrefix=1
+           - id: product-service
+             uri: lb://product-service
+             predicates:
+               - Path=/product-service/**
+             filters:
+               - StripPrefix=1
+           - id: servicio-autenticacion
+             uri: https://localhost:8081
+             predicates:
+               - Path=/servicio-autenticacion/**
+             filters:
+               - StripPrefix=1
+
 eureka:
   client:
     service-url:
@@ -50,7 +45,6 @@ eureka:
   instance:
     prefer-ip-address: true
 
-# Actuator endpoints
 management:
   endpoints:
     web:
