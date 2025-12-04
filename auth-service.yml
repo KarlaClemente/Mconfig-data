@@ -36,3 +36,18 @@ eureka:
     client:
         service-url:
             defaultZone: http://localhost:8761/eureka
+    instance:
+        hostname: localhost
+        prefer-ip-address: false
+
+management:
+  # Exponer endpoints actuator
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,loggers,threaddump,heapdump
+    
+  # Mostrar detalles de health  
+  endpoint:
+    health:
+      show-details: always
