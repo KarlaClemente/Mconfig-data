@@ -25,10 +25,10 @@ spring:
                - Path=/product-service/**
              filters:
                - StripPrefix=1
-           - id: auth-service
+           - id: servicio-autenticacion
              uri: lb://servicio-autenticacion
              predicates:
-               - Path=/auth-service/**
+               - Path=/servicio-autenticacion/**
              filters:
                - StripPrefix=1
 eureka:
