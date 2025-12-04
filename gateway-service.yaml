@@ -26,7 +26,7 @@ spring:
              filters:
                - StripPrefix=1
            - id: servicio-autenticacion
-             uri: lb://servicio-autenticacion
+             uri: https://servicio-autenticacion
              predicates:
                - Path=/servicio-autenticacion/**
              filters:
