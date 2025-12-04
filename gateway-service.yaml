@@ -8,6 +8,9 @@ spring:
         servicio-autenticacion:
           default-scheme: https
    gateway:
+     httpclient:
+        ssl:
+          useInsecureTrustManager: true
      server:
        webmvc:
          routes:
