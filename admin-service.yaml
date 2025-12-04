@@ -3,6 +3,9 @@ spring:
    name: admin-server
  boot:
    admin:
+   instance-auth:
+     default-ignore-ssl-certificate: true
+     default-verify-hostname: false
      discovery:
        enabled: true      # LE DICES al Admin que use Eureka para descubrir tus APIs
 server:
