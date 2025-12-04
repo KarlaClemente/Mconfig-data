@@ -26,11 +26,16 @@ spring:
              filters:
                - StripPrefix=1
            - id: servicio-autenticacion
-             uri: https://servicio-autenticacion
+             uri: lb://servicio-autenticacion
              predicates:
                - Path=/servicio-autenticacion/**
              filters:
                - StripPrefix=1
+
+servicio-autenticacion:
+  ribbon:
+    secure: true
+    
 eureka:
  client:
    register-with-eureka: true
