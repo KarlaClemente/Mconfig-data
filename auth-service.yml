@@ -1,14 +1,6 @@
 server:
   port: 8081
 
-  ssl:  # ✅ AGREGAR ESTA SECCIÓN
-    enabled: true
-    key-store: classpath:localhost.p12  # Tu archivo P12
-    key-store-password: Q5lC6wYAGQ4+BgvdBLqxRebvVv8fBcRl1Fyz5cgTKhasW0M8aTk=  # p12FilePwd
-    key-store-type: PKCS12
-    key-alias: 4gb0JWnF8fFoK1n0ykXTQxL8jPPNhJKC9qTUdLdfYZGHALbBIA==  # p12PrivkAlias
-    key-password: DVG7tS2fcta2xj1QGPy6G1Dws/J0Su0ALxuJ+EaN3zJjXpy6K4Y=  # p12PrivkPwd
-
 system:
   p12FilePath: localhost.p12
   p12PrivkPwd: DVG7tS2fcta2xj1QGPy6G1Dws/J0Su0ALxuJ+EaN3zJjXpy6K4Y=
@@ -44,15 +36,3 @@ eureka:
     client:
         service-url:
             defaultZone: http://localhost:8761/eureka
-    instance:  # ✅ AGREGAR ESTA CONFIGURACIÓN PARA EUREKA
-    hostname: localhost
-    secure-port-enabled: true  # ✅ Importante para HTTPS
-    secure-port: ${server.port}  # 8081
-    non-secure-port-enabled: false  # ✅ Solo exponer HTTPS
-    metadata-map:
-      management.port: ${server.port}
-      secure: true
-    # URLs específicas para HTTPS (opcional pero recomendado)
-    status-page-url: https://${eureka.instance.hostname}:${server.port}/actuator/info
-    health-check-url: https://${eureka.instance.hostname}:${server.port}/actuator/health
-    home-page-url: https://${eureka.instance.hostname}:${server.port}/

@@ -2,19 +2,8 @@ server:
  port: 8080
 
 spring:
- application:
-    name: gateway-service
  cloud:
-   loadbalancer:
-      clients:
-        servicio-autenticacion:
-          default-scheme: https
    gateway:
-     httpclient:
-        ssl:
-          useInsecureTrustManager: true
-        connect-timeout: 5000
-        response-timeout: 10s
      server:
        webmvc:
          routes:
@@ -42,7 +31,6 @@ spring:
                - Path=/servicio-autenticacion/**
              filters:
                - StripPrefix=1
-
 eureka:
  client:
    register-with-eureka: true
