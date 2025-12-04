@@ -3,6 +3,10 @@ server:
 
 spring:
  cloud:
+   loadbalancer:
+      clients:
+        servicio-autenticacion:
+          default-scheme: https
    gateway:
      server:
        webmvc:
@@ -32,10 +36,6 @@ spring:
              filters:
                - StripPrefix=1
 
-servicio-autenticacion:
-  ribbon:
-    secure: true
-    
 eureka:
  client:
    register-with-eureka: true
