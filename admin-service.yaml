@@ -1,20 +1,33 @@
 spring:
- application:
-   name: admin-server
- boot:
-   admin:
-    instance-auth:
-      default-ignore-ssl-certificate: true
-      default-verify-hostname: false
+  application:
+    name: admin-server
+  
+  boot:
+    admin:
+      # ===== CONFIGURACIÓN SSL (VERSIÓN 3.x) =====
+      client:
+        instance:
+          tls:
+            insecure: true           # ← IGNORA CERTIFICADOS NO CONFIABLES
+            verify-hostname: false   # ← NO VERIFICA HOSTNAME
+      
+      # ===== CONFIGURACIÓN DE DESCRUBIMIENTO =====
       discovery:
-        enabled: true      # LE DICES al Admin que use Eureka para descubrir tus APIs
+        enabled: true                # ← Esto está BIEN, pero ahora al nivel correcto
+        # ignored-services: actuator, consul  # (opcional) servicios a ignorar
+
+# ===== SERVER =====
 server:
- port: 9090
+  port: 9090
+
+# ===== EUREKA =====
 eureka:
- client:
-   service-url:
-     defaultZone: http://localhost:8761/eureka  # adapta al host/puerto de tu Eureka
-   register-with-eureka: true
-   fetch-registry: true
- instance:
-   prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  
+  instance:
+    prefer-ip-address: true
+    # hostname: localhost  # (opcional) mejor definirlo explícitamente
