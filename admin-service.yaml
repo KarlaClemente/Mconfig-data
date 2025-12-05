@@ -1,24 +1,10 @@
 spring:
-  application:
-    name: admin-server
-  
-  # Necesario para que Spring Boot Admin use RestTemplate en lugar de WebClient
-  main:
-    web-application-type: servlet  # ← FORZAR a usar Servlet (no WebFlux)
-  
-  boot:
-    admin:
-      # Configuración SSL (aunque tu clase ya lo deshabilita globalmente)
-      client:
-        instance:
-          tls:
-            insecure: true           # ← Compatible con tu configuración
-            verify-hostname: false   # ← Compatible con tu configuración
-      
-      # Descubrimiento de servicios
-      discovery:
-        enabled: true
-
+ application:
+   name: admin-server
+ boot:
+   admin:
+     discovery:
+       enabled: true      # LE DICES al Admin que use Eureka para descubrir tus APIs
 server:
  port: 9090
 eureka:
