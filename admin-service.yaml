@@ -1,33 +1,60 @@
+server:
+  port: 8081
+
+system:
+  p12FilePath: localhost.p12
+  p12PrivkPwd: DVG7tS2fcta2xj1QGPy6G1Dws/J0Su0ALxuJ+EaN3zJjXpy6K4Y=
+  p12PrivkAlias: 4gb0JWnF8fFoK1n0ykXTQxL8jPPNhJKC9qTUdLdfYZGHALbBIA==
+  hostname: Vy5aAoXEi/1RcOOsL2d4kJYxwjuvwuyHJ9eksDXwFyetwnQyZA==
+  p12FilePwd: Q5lC6wYAGQ4+BgvdBLqxRebvVv8fBcRl1Fyz5cgTKhasW0M8aTk=
+
 spring:
   application:
-    name: admin-server
-  
-  boot:
-    admin:
-      # ===== CONFIGURACIÓN SSL (VERSIÓN 3.x) =====
-      client:
-        instance:
-          tls:
-            insecure: true           # ← IGNORA CERTIFICADOS NO CONFIABLES
-            verify-hostname: false   # ← NO VERIFICA HOSTNAME
-      
-      # ===== CONFIGURACIÓN DE DESCRUBIMIENTO =====
-      discovery:
-        enabled: true                # ← Esto está BIEN, pero ahora al nivel correcto
-        # ignored-services: actuator, consul  # (opcional) servicios a ignorar
+    name: servicio-autenticacion
+  datasource:
+    url: jdbc:mysql://localhost:3306/auth_db
+    password: Railgun22. 
+    username: root
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
 
-# ===== SERVER =====
-server:
-  port: 9090
+springdoc:
+    swagger-ui:
+        operations-sorter: method
+        default-model-expand-depth: 5
+        default-model-rendering: model
+    packagesToScan: com.unam.dwb.auth.controller
+    pathsToMatch: /**
 
-# ===== EUREKA =====
 eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
-    register-with-eureka: true
-    fetch-registry: true
-  
-  instance:
-    prefer-ip-address: true
-    # hostname: localhost  # (opcional) mejor definirlo explícitamente
+    client:
+        service-url:
+            defaultZone: http://localhost:8761/eureka
+    instance:
+        hostname: localhost
+        prefer-ip-address: false
+        secure-port-enabled: true
+        non-secure-port-enabled: false  # Desactiva el puerto no seguro
+        
+        # URLs específicas para health checks con HTTPS:
+        status-page-url: https://${eureka.instance.hostname}:${server.port}/actuator/info
+        health-check-url: https://${eureka.instance.hostname}:${server.port}/actuator/health
+        home-page-url: https://${eureka.instance.hostname}:${server.port}/
+
+management:
+  # Exponer endpoints actuator
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,loggers,threaddump,heapdump
+    
+  # Mostrar detalles de health  
+  endpoint:
+    health:
+      show-details: always
